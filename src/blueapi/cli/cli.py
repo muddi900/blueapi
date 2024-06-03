@@ -17,12 +17,9 @@ from blueapi.messaging import MessageContext
 from blueapi.messaging.stomptemplate import StompMessagingTemplate
 from blueapi.service.main import start
 from blueapi.service.model import WorkerTask
-from blueapi.service.openapi import (
-    DOCS_SCHEMA_LOCATION,
-    generate_schema,
-    print_schema_as_yaml,
-    write_schema_as_yaml,
-)
+from blueapi.service.openapi import (DOCS_SCHEMA_LOCATION, generate_schema,
+                                     print_schema_as_yaml,
+                                     write_schema_as_yaml)
 from blueapi.worker import ProgressEvent, Task, WorkerEvent, WorkerState
 
 from .rest import BlueapiRestClient
@@ -44,7 +41,7 @@ def main(ctx: click.Context, config: Path | None | tuple[Path, ...]) -> None:
             if path.exists():
                 config_loader.use_values_from_yaml(path)
             else:
-                raise FileNotFoundError(f"Cannot find file: {path}")
+                raise click.FileError(f"Cannot find file: {path}")
 
     ctx.ensure_object(dict)
     loaded_config: ApplicationConfig = config_loader.load()
@@ -140,7 +137,7 @@ def listen_to_events(obj: dict) -> None:
             StompMessagingTemplate.autoconfigured(config.stomp)
         )
     else:
-        raise RuntimeError("Message bus needs to be configured")
+        click.UsageError("Message bus needs to be configured")
 
     def on_event(
         context: MessageContext,
