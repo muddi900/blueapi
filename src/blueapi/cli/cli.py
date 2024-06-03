@@ -17,9 +17,12 @@ from blueapi.messaging import MessageContext
 from blueapi.messaging.stomptemplate import StompMessagingTemplate
 from blueapi.service.main import start
 from blueapi.service.model import WorkerTask
-from blueapi.service.openapi import (DOCS_SCHEMA_LOCATION, generate_schema,
-                                     print_schema_as_yaml,
-                                     write_schema_as_yaml)
+from blueapi.service.openapi import (
+    DOCS_SCHEMA_LOCATION,
+    generate_schema,
+    print_schema_as_yaml,
+    write_schema_as_yaml,
+)
 from blueapi.worker import ProgressEvent, Task, WorkerEvent, WorkerState
 
 from .rest import BlueapiRestClient
